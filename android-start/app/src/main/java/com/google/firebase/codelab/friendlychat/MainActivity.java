@@ -262,8 +262,8 @@ public class MainActivity extends AppCompatActivity
 
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
 
-        mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
+        mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
         mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mSharedPreferences
                 .getInt(CodelabPreferences.FRIENDLY_MSG_LENGTH, DEFAULT_MSG_LENGTH_LIMIT))});
