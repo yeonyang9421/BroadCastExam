@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity
                                             FriendlyMessage friendlyMessage) {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 if (friendlyMessage.getText() != null) {
+
                     viewHolder.messageTextView.setText(friendlyMessage.getText());
                     viewHolder.messageTextView.setVisibility(TextView.VISIBLE);
                     viewHolder.messageImageView.setVisibility(ImageView.GONE);
@@ -368,6 +369,7 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -405,6 +407,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
     private void putImageInStorage(StorageReference storageReference, Uri uri, final String key) {
         storageReference.putFile(uri).addOnCompleteListener(MainActivity.this,
                 new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -424,4 +427,6 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
     }
+
+
 }
