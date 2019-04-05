@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LocationDustInfoActivity"
+    android:orientation="vertical">
+
+
+    <Spinner
+        android:id="@+id/spinner_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="country"/>
+    <Spinner
+        android:id="@+id/spinner_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="state"/>
+    <Spinner
+        android:id="@+id/spinner_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="city"/>
+
+    <Button
+        android:id="@+id/button_send_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="미세먼지 정보 알아보기"
+        android:onClick="onSendDustInfo"/>
+
+    <TextView
+        android:id="@+id/textResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

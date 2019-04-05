@@ -1,4 +1,4 @@
-package kr.co.woobi.imyeon.airvisualapinetwork;
+package kr.co.woobi.imyeon.airvisualapinetwork.model;
 
 import java.util.List;
 

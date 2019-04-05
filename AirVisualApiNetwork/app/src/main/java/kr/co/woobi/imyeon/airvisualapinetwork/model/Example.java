@@ -1,4 +1,6 @@
-package kr.co.woobi.imyeon.airvisualapinetwork;
+package kr.co.woobi.imyeon.airvisualapinetwork.model;
+
+import kr.co.woobi.imyeon.airvisualapinetwork.model.Data;
 
 public class Example {
 
