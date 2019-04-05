@@ -21,43 +21,13 @@ public class FirstSceneActivity extends AppCompatActivity {
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-     /*   ImageView mImageGood = findViewById(R.id.image_good);
-        GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(mImageGood);
-        Glide.with(this).load(R.drawable.gif1).into(goodgif);*/
-
         ImageView mImageNormal = findViewById(R.id.image_normal);
         GlideDrawableImageViewTarget normalgif = new GlideDrawableImageViewTarget(mImageNormal);
         Glide.with(this).load(R.drawable.main).into(normalgif);
-
-  /*      ImageView mImageBad = findViewById(R.id.image_bad);
-        GlideDrawableImageViewTarget badgif = new GlideDrawableImageViewTarget(mImageBad);
-        Glide.with(this).load(R.drawable.gif4).into(badgif);
-
-        ImageView mImageVeryBad = findViewById(R.id.image_verybad);
-        GlideDrawableImageViewTarget verybadgif = new GlideDrawableImageViewTarget(mImageVeryBad);
-        Glide.with(this).load(R.drawable.gif3).into(verybadgif);*/
-
-       /* Handler hand = new Handler();
-
-        hand.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                Intent i = new Intent(FirstSceneActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
-
-            }
-        }, 4000);
-
-*/
     }
 
     public void gotoNextScene(View view) {
-        Intent intent=new Intent(this, MainActivity.class);
-        startActivityForResult(intent,REQUEST_CODE);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
     }
-
-    }
+}

@@ -12,9 +12,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.co.woobi.imyeon.airvisualapinetwork.countryMode.Country;
-import kr.co.woobi.imyeon.airvisualapinetwork.countryMode.LocationDustInfo;
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Example;
+import kr.co.woobi.imyeon.airvisualapinetwork.adapter.RecyclerViewAdapter;
+import kr.co.woobi.imyeon.airvisualapinetwork.countryModel.Country;
+import kr.co.woobi.imyeon.airvisualapinetwork.countryModel.LocationDustInfo;
+import kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel.Example;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,8 +31,6 @@ public class FindCountryFragment extends Fragment {
     private String mCountry, mState, mCity;
     private Retrofit mRetrofit;
     private Example mData;
-
-
 
     @Nullable
     @Override
@@ -55,7 +54,6 @@ public class FindCountryFragment extends Fragment {
         mService.keyCountry(MYKEY).enqueue(new Callback<LocationDustInfo>() {
             @Override
             public void onResponse(Call<LocationDustInfo> call, Response<LocationDustInfo> response) {
-
                 List<Country> data=response.body().getData();
                 for (int i = 0; i < data.size(); i++) {
                     listData.add(data.get(i).getCountry());
@@ -64,7 +62,6 @@ public class FindCountryFragment extends Fragment {
                 mAdapter = new RecyclerViewAdapter(listData);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
-
             }
 
             @Override

@@ -8,16 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.woobi.imyeon.airvisualapinetwork.adapter.RecyclerViewAdapterForCity;
 import kr.co.woobi.imyeon.airvisualapinetwork.cityModel.City;
 import kr.co.woobi.imyeon.airvisualapinetwork.cityModel.CityLocationInfo;
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Example;
-import kr.co.woobi.imyeon.airvisualapinetwork.stateModel.State;
-import kr.co.woobi.imyeon.airvisualapinetwork.stateModel.StateLocationInfo;
+import kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel.Example;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,7 +31,6 @@ public class FindCityFragment extends Fragment {
     private String mCountry, mState, mCity, mInfo;
     private Retrofit mRetrofit;
     private Example mData;
-
 
     public static FindCityFragment newInstance(String country, String state) {
         FindCityFragment fragment = new FindCityFragment();
@@ -51,11 +48,7 @@ public class FindCityFragment extends Fragment {
             mCountry = getArguments().getString("country");
             mState = getArguments().getString("state");
         }
-
     }
-
-
-
 
     @Nullable
     @Override
@@ -71,7 +64,7 @@ public class FindCityFragment extends Fragment {
                 .build();
 
         mService = mRetrofit.create(Service.class);
-        mService.keyCity(mState,mCountry, MYKEY).enqueue(new Callback<CityLocationInfo>() {
+        mService.keyCity(mState, mCountry, MYKEY).enqueue(new Callback<CityLocationInfo>() {
             @Override
             public void onResponse(Call<CityLocationInfo> call, Response<CityLocationInfo> response) {
 
@@ -83,10 +76,6 @@ public class FindCityFragment extends Fragment {
                 mAdapter = new RecyclerViewAdapterForCity(listData);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
-
-
-//                Toast.makeText(view.getContext(), ""+mCity+mState+mCountry, Toast.LENGTH_SHORT).show();
-
             }
 
             @Override
@@ -94,7 +83,6 @@ public class FindCityFragment extends Fragment {
 
             }
         });
-
         return view;
     }
 

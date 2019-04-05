@@ -1,8 +1,6 @@
-package kr.co.woobi.imyeon.airvisualapinetwork.model;
+package kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel;
 
 import android.location.Location;
-
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Current;
 
 public class Data {
 

@@ -15,10 +15,10 @@ import java.util.List;
 
 import kr.co.woobi.imyeon.airvisualapinetwork.cityModel.CityLocationInfo;
 import kr.co.woobi.imyeon.airvisualapinetwork.cityModel.City;
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Example;
+import kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel.Example;
 import kr.co.woobi.imyeon.airvisualapinetwork.stateModel.StateLocationInfo;
-import kr.co.woobi.imyeon.airvisualapinetwork.countryMode.Country;
-import kr.co.woobi.imyeon.airvisualapinetwork.countryMode.LocationDustInfo;
+import kr.co.woobi.imyeon.airvisualapinetwork.countryModel.Country;
+import kr.co.woobi.imyeon.airvisualapinetwork.countryModel.LocationDustInfo;
 import kr.co.woobi.imyeon.airvisualapinetwork.stateModel.State;
 import retrofit2.Call;
 import retrofit2.Callback;

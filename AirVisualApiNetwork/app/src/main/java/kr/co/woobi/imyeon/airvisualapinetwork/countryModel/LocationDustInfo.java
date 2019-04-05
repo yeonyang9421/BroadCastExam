@@ -1,4 +1,4 @@
-package kr.co.woobi.imyeon.airvisualapinetwork.countryMode;
+package kr.co.woobi.imyeon.airvisualapinetwork.countryModel;
 
 import com.google.gson.annotations.SerializedName;
 

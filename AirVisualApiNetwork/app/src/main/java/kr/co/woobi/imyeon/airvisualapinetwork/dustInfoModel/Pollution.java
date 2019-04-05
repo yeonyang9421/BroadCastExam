@@ -1,4 +1,4 @@
-package kr.co.woobi.imyeon.airvisualapinetwork.model;
+package kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel;
 
 public class Pollution {
 

@@ -13,7 +13,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventCityItem;
 import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventCountryItem;
 import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventStateItem;
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Example;
+import kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel.Example;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,8 +36,6 @@ public class FindCityActivity extends AppCompatActivity {
 
         FindCountryFragment findCountryFragment=new FindCountryFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,findCountryFragment).commit();
-
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -68,22 +66,12 @@ public class FindCityActivity extends AppCompatActivity {
         mService.keyCityStateCountry(mCity, mState, mCountry, MYKEY).enqueue(new Callback<Example>() {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
-//                        Toast.makeText(LocationDustInfoActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
 
                 mData = new Example();
                 mData.setData(response.body().getData());
-
-                       /* for (int i = 0; i < data.size(); i++) {
-                            listCity.add(data.get(i).getCity());
-                        }*/
-                Toast.makeText(FindCityActivity.this, "" + mCountry + mState + mCity, Toast.LENGTH_SHORT).show();
-
-
-
                 Intent intent = new Intent(FindCityActivity.this, MainActivity.class);
-
-
                 intent.putExtra("city", mData.getData().city);
+                intent.putExtra("ti", mData.getData().getCurrent().getPollution().getTs());
                 intent.putExtra("hu", mData.getData().getCurrent().getWeather().getHu());
                 intent.putExtra("ws", mData.getData().getCurrent().getWeather().getWs());
                 intent.putExtra("hu", mData.getData().getCurrent().getWeather().getHu());
@@ -91,29 +79,14 @@ public class FindCityActivity extends AppCompatActivity {
                 intent.putExtra("aqicn", mData.getData().getCurrent().getPollution().getAqius());
                 intent.putExtra("aqius", mData.getData().getCurrent().getPollution().getAqicn());
                 startActivityForResult(intent, 1000);
-
-
-
-                
-
-
-
             }
 
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
                 Toast.makeText(FindCityActivity.this, "" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
     }
-
-
-
-
-
-
-
 
     @Override
     public void onStart() {
@@ -127,9 +100,8 @@ public class FindCityActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onGotoMainActivity(View view) {
+   /* public void onGotoMainActivity(View view) {
         Intent intent = new Intent(this, MainActivity.class);
-
 
         intent.putExtra("city", mData.getData().city);
         intent.putExtra("hu", mData.getData().getCurrent().getWeather().getHu());
@@ -138,11 +110,6 @@ public class FindCityActivity extends AppCompatActivity {
         intent.putExtra("aqicn", mData.getData().getCurrent().getPollution().getAqius());
         intent.putExtra("aqius", mData.getData().getCurrent().getPollution().getAqicn());
         startActivityForResult(intent, 1000);
-
-
-
         Toast.makeText(this, ""+mCountry + mState + mCity, Toast.LENGTH_SHORT).show();
-
-
-    }
+    }*/
 }

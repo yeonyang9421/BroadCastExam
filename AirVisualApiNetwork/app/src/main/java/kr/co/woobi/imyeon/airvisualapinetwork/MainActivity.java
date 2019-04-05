@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,11 +22,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Example;
+import kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel.Example;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final String MYKEY = "4Mn5Fqqsh4bfJoaBg";
     private String TAG = MainActivity.class.getSimpleName();
     private LinearLayout mLinearLayout;
-    TextView mTextCity, mTextTemp, mTextHum, mTextPm10, mTextPm2, mTextWs;
+    TextView mTextCity, mTextTemp, mTextHum, mTextPm10, mTextPm2, mTextWs, mTextTime;
     Intent mIntent;
 
 
@@ -47,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         Toolbar toolbar = findViewById(R.id.mytoolbar);
         setSupportActionBar(toolbar);
 
@@ -59,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         mLinearLayout = findViewById(R.id.back);
         mTextCity = findViewById(R.id.textCity);
+        mTextTime=findViewById(R.id.text_time);
         mTextTemp = findViewById(R.id.textTemp);
         mTextHum = findViewById(R.id.textHum);
         mTextPm10 = findViewById(R.id.textPm10);
@@ -82,8 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .build();
 
             mService = retrofit.create(Service.class);
-
-
             mService.keyValue(MYKEY).enqueue(new Callback<Example>() {
                 @Override
                 public void onResponse(Call<Example> call, Response<Example> response) {
@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             mLinearLayout.setBackground(good);
                             GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                             Glide.with(MainActivity.this).load(R.drawable.gif1).into(goodgif);
-
-
                         } else if (air <= 30) {
                             mLinearLayout.setBackground(normal);
 
@@ -116,10 +114,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             mLinearLayout.setBackground(verybad);
                             GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                             Glide.with(MainActivity.this).load(R.drawable.gif4).into(goodgif);
-
                         }
-
                         mTextCity.setText(response.body().getData().city);
+                        mTextTime.setText(response.body().getData().getCurrent().getPollution().getTs());
                         mTextHum.setText(response.body().getData().getCurrent().getWeather().hu + " %");
                         mTextWs.setText(response.body().getData().getCurrent().getWeather().ws + "  m/sec");
                         mTextTemp.setText(response.body().getData().getCurrent().getWeather().tp + " °C");
@@ -136,12 +133,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
 
         } else {
-
             Drawable good = getResources().getDrawable(R.drawable.good);
             Drawable normal = getResources().getDrawable(R.drawable.normal);
             Drawable bad = getResources().getDrawable(R.drawable.bad);
             Drawable verybad = getResources().getDrawable(R.drawable.verybad);
-
 
             int air = (int) mIntent.getIntExtra("aqicn", 0);
 
@@ -151,8 +146,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mLinearLayout.setBackground(good);
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif1).into(goodgif);
-
-
                 } else if (air <= 30) {
                     mLinearLayout.setBackground(normal);
 
@@ -168,21 +161,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mLinearLayout.setBackground(verybad);
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif4).into(goodgif);
-
                 }
 
                 mTextCity.setText(mIntent.getStringExtra("city"));
-                mTextHum.setText(mIntent.getDoubleExtra("hu", 0) + " %");
+                mTextHum.setText(mIntent.getIntExtra("hu", 0) + " %");
                 mTextWs.setText(mIntent.getDoubleExtra("ws", 0) + "  m/sec");
                 mTextTemp.setText(mIntent.getIntExtra("tp", 0) + " °C");
                 mTextPm2.setText(mIntent.getIntExtra("aqicn", 0) + "  ㎍/m³");
                 mTextPm10.setText(mIntent.getIntExtra("aqius", 0) + "  ㎍/m³");
             }
-
-
         }
-
-
     }
 
 
@@ -209,17 +197,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent = new Intent(this, MainActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
             finish();
-        }else if(id == R.id.second){
-            Intent intent=new Intent(this, FindCityActivity.class);
+        } else if (id == R.id.second) {
+            Intent intent = new Intent(this, FindCityActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
             finish();
-        }else if(id == R.id.third){
-            Intent intent=new Intent(this, FirstSceneActivity.class);
+        } else if (id == R.id.third) {
+            Intent intent = new Intent(this, FirstSceneActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
             finish();
-
         }
-
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -250,7 +236,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START) || (mOnBackKeyPressedListener != null)) {
             drawer.closeDrawer(GravityCompat.START);
-
             mOnBackKeyPressedListener.onBackKey();
         } else if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
             super.onBackPressed();

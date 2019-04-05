@@ -1,4 +1,4 @@
-package kr.co.woobi.imyeon.airvisualapinetwork;
+package kr.co.woobi.imyeon.airvisualapinetwork.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventCountryItem;
+import kr.co.woobi.imyeon.airvisualapinetwork.R;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     List<String> mItem=new ArrayList<>();

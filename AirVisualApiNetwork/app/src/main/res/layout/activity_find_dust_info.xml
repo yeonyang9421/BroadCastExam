@@ -30,12 +30,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"/>
-    <Button
-        android:id="@+id/button_send_data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="미세먼지 정보 알아보기"
-        android:onClick="onGotoMainActivity"
-        />
+
 
 </LinearLayout>

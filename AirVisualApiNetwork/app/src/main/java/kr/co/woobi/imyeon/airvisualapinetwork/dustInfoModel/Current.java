@@ -1,7 +1,4 @@
-package kr.co.woobi.imyeon.airvisualapinetwork.model;
-
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Pollution;
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Weather;
+package kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel;
 
 public class Current {
 

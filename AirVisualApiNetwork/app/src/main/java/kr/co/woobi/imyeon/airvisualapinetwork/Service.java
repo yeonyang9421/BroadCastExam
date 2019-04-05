@@ -2,8 +2,8 @@ package kr.co.woobi.imyeon.airvisualapinetwork;
 
 import kr.co.woobi.imyeon.airvisualapinetwork.cityModel.CityLocationInfo;
 import kr.co.woobi.imyeon.airvisualapinetwork.stateModel.StateLocationInfo;
-import kr.co.woobi.imyeon.airvisualapinetwork.model.Example;
-import kr.co.woobi.imyeon.airvisualapinetwork.countryMode.LocationDustInfo;
+import kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel.Example;
+import kr.co.woobi.imyeon.airvisualapinetwork.countryModel.LocationDustInfo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
