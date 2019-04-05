@@ -12,6 +12,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventCountryItem;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     List<String> mItem=new ArrayList<>();
 

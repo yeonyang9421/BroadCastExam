@@ -30,7 +30,7 @@ public class LocationDustInfoActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 1000;
     private Spinner mSpinnerCountry, mSpinnerState, mSpinnerCity;
     private Service mService;
-    private final String MYKEY = "qn5N7AM3TKTLJ3x9b";
+    private final String MYKEY = "4Mn5Fqqsh4bfJoaBg";
     private String mCountry, mState, mCity;
     private Retrofit mRetrofit;
     private Example mData;

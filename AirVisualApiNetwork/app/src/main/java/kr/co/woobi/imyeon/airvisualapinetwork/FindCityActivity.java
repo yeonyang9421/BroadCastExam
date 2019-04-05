@@ -4,13 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventCityItem;
+import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventCountryItem;
+import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventStateItem;
 import kr.co.woobi.imyeon.airvisualapinetwork.model.Example;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +26,7 @@ public class FindCityActivity extends AppCompatActivity {
     private String mCity;
     private Retrofit mRetrofit;
     private Service mService;
-    private final String MYKEY = "qn5N7AM3TKTLJ3x9b";
+    private final String MYKEY = "4Mn5Fqqsh4bfJoaBg";
     private Example mData;
 
     @Override
@@ -33,7 +35,7 @@ public class FindCityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_dust_info);
 
         FindCountryFragment findCountryFragment=new FindCountryFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.frame_container,findCountryFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,findCountryFragment).commit();
 
 
     }
@@ -50,7 +52,7 @@ public class FindCityActivity extends AppCompatActivity {
         mState = event.getState();
         FindCityFragment findCityFragment= FindCityFragment.newInstance(mCountry,mState);
         Toast.makeText(this, ""+mCountry + mState, Toast.LENGTH_SHORT).show();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container2,findCityFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container3,findCityFragment).commit();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -84,8 +86,9 @@ public class FindCityActivity extends AppCompatActivity {
                 intent.putExtra("city", mData.getData().city);
                 intent.putExtra("hu", mData.getData().getCurrent().getWeather().getHu());
                 intent.putExtra("ws", mData.getData().getCurrent().getWeather().getWs());
+                intent.putExtra("hu", mData.getData().getCurrent().getWeather().getHu());
                 intent.putExtra("tp", mData.getData().getCurrent().getWeather().getTp());
-                intent.putExtra("aqicn", mData.getData().getCurrent().getPollution().getAqicn());
+                intent.putExtra("aqicn", mData.getData().getCurrent().getPollution().getAqius());
                 intent.putExtra("aqius", mData.getData().getCurrent().getPollution().getAqicn());
                 startActivityForResult(intent, 1000);
 
@@ -132,7 +135,7 @@ public class FindCityActivity extends AppCompatActivity {
         intent.putExtra("hu", mData.getData().getCurrent().getWeather().getHu());
         intent.putExtra("ws", mData.getData().getCurrent().getWeather().getWs());
         intent.putExtra("tp", mData.getData().getCurrent().getWeather().getTp());
-        intent.putExtra("aqicn", mData.getData().getCurrent().getPollution().getAqicn());
+        intent.putExtra("aqicn", mData.getData().getCurrent().getPollution().getAqius());
         intent.putExtra("aqius", mData.getData().getCurrent().getPollution().getAqicn());
         startActivityForResult(intent, 1000);
 

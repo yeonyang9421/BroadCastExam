@@ -13,6 +13,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.woobi.imyeon.airvisualapinetwork.EventItem.EventCityItem;
+
 public class RecyclerViewAdapterForCity extends RecyclerView.Adapter<RecyclerViewAdapterForCity.ViewHolder> {
     List<String> mItem=new ArrayList<>();
 

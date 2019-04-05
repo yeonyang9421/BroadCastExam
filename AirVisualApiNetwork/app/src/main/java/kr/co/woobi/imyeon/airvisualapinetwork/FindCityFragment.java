@@ -29,7 +29,7 @@ public class FindCityFragment extends Fragment {
     RecyclerViewAdapterForCity mAdapter;
 
     private Service mService;
-    private final String MYKEY = "qn5N7AM3TKTLJ3x9b";
+    private final String MYKEY = "4Mn5Fqqsh4bfJoaBg";
     private String mCountry, mState, mCity, mInfo;
     private Retrofit mRetrofit;
     private Example mData;
