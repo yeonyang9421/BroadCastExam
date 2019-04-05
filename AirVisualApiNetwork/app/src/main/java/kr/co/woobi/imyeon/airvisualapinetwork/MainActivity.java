@@ -23,6 +23,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import kr.co.woobi.imyeon.airvisualapinetwork.dustInfoModel.Example;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -115,8 +118,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                             Glide.with(MainActivity.this).load(R.drawable.gif4).into(goodgif);
                         }
+                        Date now= new Date();
+                        SimpleDateFormat format=new SimpleDateFormat("EEE, MMM d, ' 'yy");
                         mTextCity.setText(response.body().getData().city);
-                        mTextTime.setText(response.body().getData().getCurrent().getPollution().getTs());
+//                        mTextTime.setText(format.format(response.body().getData().getCurrent().getPollution().ts));
+                        mTextTime.setText(format.format(now));
                         mTextHum.setText(response.body().getData().getCurrent().getWeather().hu + " %");
                         mTextWs.setText(response.body().getData().getCurrent().getWeather().ws + "  m/sec");
                         mTextTemp.setText(response.body().getData().getCurrent().getWeather().tp + " °C");
@@ -164,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
 
                 mTextCity.setText(mIntent.getStringExtra("city"));
+                mTextTime.setText(mIntent.getStringExtra("ti"));
                 mTextHum.setText(mIntent.getIntExtra("hu", 0) + " %");
                 mTextWs.setText(mIntent.getDoubleExtra("ws", 0) + "  m/sec");
                 mTextTemp.setText(mIntent.getIntExtra("tp", 0) + " °C");
@@ -171,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mTextPm10.setText(mIntent.getIntExtra("aqius", 0) + "  ㎍/m³");
             }
         }
-    }
+}
 
 
     @Override
