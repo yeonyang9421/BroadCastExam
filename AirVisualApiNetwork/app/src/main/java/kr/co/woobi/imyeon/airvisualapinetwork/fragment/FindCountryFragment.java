@@ -1,4 +1,4 @@
-package kr.co.woobi.imyeon.airvisualapinetwork;
+package kr.co.woobi.imyeon.airvisualapinetwork.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.woobi.imyeon.airvisualapinetwork.R;
+import kr.co.woobi.imyeon.airvisualapinetwork.Service;
 import kr.co.woobi.imyeon.airvisualapinetwork.adapter.RecyclerViewAdapter;
 import kr.co.woobi.imyeon.airvisualapinetwork.countryModel.Country;
 import kr.co.woobi.imyeon.airvisualapinetwork.countryModel.LocationDustInfo;

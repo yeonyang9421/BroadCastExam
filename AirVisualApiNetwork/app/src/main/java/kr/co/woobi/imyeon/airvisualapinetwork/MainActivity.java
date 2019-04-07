@@ -1,6 +1,9 @@
 package kr.co.woobi.imyeon.airvisualapinetwork;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Toolbar toolbar = findViewById(R.id.mytoolbar);
+        toolbar.setBackgroundColor(Color.TRANSPARENT);
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mLinearLayout = findViewById(R.id.back);
         mTextCity = findViewById(R.id.textCity);
-        mTextTime=findViewById(R.id.text_time);
+        mTextTime = findViewById(R.id.text_time);
         mTextTemp = findViewById(R.id.textTemp);
         mTextHum = findViewById(R.id.textHum);
         mTextPm10 = findViewById(R.id.textPm10);
@@ -118,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                             Glide.with(MainActivity.this).load(R.drawable.gif4).into(goodgif);
                         }
-                        Date now= new Date();
-                        SimpleDateFormat format=new SimpleDateFormat("EEE, MMM d, ' 'yy");
+                        Date now = new Date();
+                        SimpleDateFormat format = new SimpleDateFormat("EEE, MMM d, ' 'yy");
                         mTextCity.setText(response.body().getData().city);
 //                        mTextTime.setText(format.format(response.body().getData().getCurrent().getPollution().ts));
                         mTextTime.setText(format.format(now));
@@ -152,13 +157,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mLinearLayout.setBackground(good);
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif1).into(goodgif);
-                } else if (air <= 30) {
+                } else if (air>15 && air <= 30) {
                     mLinearLayout.setBackground(normal);
 
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif2).into(goodgif);
 
-                } else if (air <= 50) {
+                } else if (air>=30 && air <= 50) {
                     mLinearLayout.setBackground(bad);
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif3).into(goodgif);
@@ -178,7 +183,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mTextPm10.setText(mIntent.getIntExtra("aqius", 0) + "  ㎍/m³");
             }
         }
-}
+    }
 
 
     @Override
@@ -201,14 +206,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = menuItem.getItemId();
 
         if (id == R.id.first) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class); //ip주소로 찾기
             startActivityForResult(intent, REQUEST_CODE);
             finish();
         } else if (id == R.id.second) {
-            Intent intent = new Intent(this, FindCityActivity.class);
+            Intent intent = new Intent(this, GpsLocationActivity.class); //gps로 찾기
             startActivityForResult(intent, REQUEST_CODE);
             finish();
         } else if (id == R.id.third) {
+            Intent intent = new Intent(this, FindCityActivity.class); //도시로 찾기
+            startActivityForResult(intent, REQUEST_CODE);
+            finish();
+        }else if (id == R.id.fourth) {
+            Intent intent = new Intent(this, MapViewActivity.class); //널스쿨로 확인하기
+            startActivityForResult(intent, REQUEST_CODE);
+            finish();
+        }else if (id == R.id.fifth) {
             Intent intent = new Intent(this, FirstSceneActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
             finish();
@@ -227,6 +240,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
         }
     }
+
+
 
     public interface OnBackKeyPressedListener {
         public void onBackKey();

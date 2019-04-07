@@ -8,7 +8,7 @@
     tools:context=".FindCityActivity">
 
     <LinearLayout
-        android:background="#A2B0F3"
+        android:background="@drawable/country"
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -16,7 +16,7 @@
         android:orientation="horizontal"/>
 
     <LinearLayout
-        android:background="#F9CAFF"
+        android:background="@drawable/state"
         android:id="@+id/frame_container2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -24,7 +24,7 @@
         android:orientation="horizontal"/>
 
     <LinearLayout
-        android:background="#F4FF8D"
+        android:background="@drawable/cityfind"
         android:id="@+id/frame_container3"
         android:layout_width="match_parent"
         android:layout_height="0dp"

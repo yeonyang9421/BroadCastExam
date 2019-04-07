@@ -28,4 +28,7 @@ public interface Service {
     Call<Example> keyCityStateCountry (@Query("city") String city, @Query("state") String state, @Query("country") String country, @Query("key") String key );
 
 
+    @GET("v2/nearest_city")
+    Call<Example> keylatLon(@Query("lat") Double lat, @Query("lon") Double lon, @Query("key") String key);
+
 }

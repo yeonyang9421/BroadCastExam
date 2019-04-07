@@ -35,7 +35,6 @@ public class LocationDustInfoActivity extends AppCompatActivity {
     private Retrofit mRetrofit;
     private Example mData;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

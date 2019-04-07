@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_one"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="널스쿨" />
+    <item
+        android:id="@+id/action_two"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/sand"
+        android:title="안양대연구소" />
+    <item
+        android:id="@+id/action_three"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/moon"
+        android:title="일본기상청" />
+</menu>
