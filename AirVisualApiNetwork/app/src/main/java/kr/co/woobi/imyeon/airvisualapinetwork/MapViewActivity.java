@@ -38,7 +38,7 @@ public class MapViewActivity extends AppCompatActivity {
                         break;
                     case R.id.action_three:
                         WebViewFragment japanFragment = WebViewFragment.newInstance("https://tenki.jp/lite/pm25/precip.html",
-                                "https://www.airkorea.or.kr/map");
+                                "https://www.airvisual.com/earth");
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_web_container, japanFragment).commit();
                         break;
 
