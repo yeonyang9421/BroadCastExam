@@ -1,4 +1,4 @@
-package kr.co.woobi.imyeon.airvisualapinetwork;
+package kr.co.woobi.imyeon.airvisualapinetwork.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import kr.co.woobi.imyeon.airvisualapinetwork.R;
 
 public class WebViewFragment extends Fragment {
     public static final int REQUEST_CODE = 1000;
