@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LinearLayout mLinearLayout;
     TextView mTextCity, mTextTemp, mTextHum, mTextPm10, mTextPm2, mTextWs, mTextTime;
     Intent mIntent;
+    Toolbar mToolbar;
 
 
     @Override
@@ -56,13 +57,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Toolbar toolbar = findViewById(R.id.mytoolbar);
-        toolbar.setBackgroundColor(Color.TRANSPARENT);
-        setSupportActionBar(toolbar);
+        mToolbar = findViewById(R.id.mytoolbar);
+        mToolbar.setBackgroundColor(Color.TRANSPARENT);
+        setSupportActionBar(mToolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -104,22 +105,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     ImageView image_gif = findViewById(R.id.image_gif);
                     if (response.body() != null) {
                         if (air <= 15) {
+                            mToolbar.setBackgroundColor(Color.parseColor("#4461da"));
                             mLinearLayout.setBackground(good);
                             GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                             Glide.with(MainActivity.this).load(R.drawable.gif1).into(goodgif);
                         } else if (air <= 30) {
                             mLinearLayout.setBackground(normal);
-
+                            mToolbar.setBackgroundColor(Color.parseColor("#4e8b29"));
                             GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                             Glide.with(MainActivity.this).load(R.drawable.gif2).into(goodgif);
 
                         } else if (air <= 50) {
                             mLinearLayout.setBackground(bad);
+                            mToolbar.setBackgroundColor(Color.parseColor("#d49706"));
                             GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                             Glide.with(MainActivity.this).load(R.drawable.gif3).into(goodgif);
 
                         } else {
                             mLinearLayout.setBackground(verybad);
+                            mToolbar.setBackgroundColor(Color.parseColor("#8a221f"));
                             GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                             Glide.with(MainActivity.this).load(R.drawable.gif4).into(goodgif);
                         }
@@ -155,21 +159,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (air != 0) {
                 if (air <= 15) {
                     mLinearLayout.setBackground(good);
+                    mToolbar.setBackgroundColor(Color.parseColor("#4461da"));
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif1).into(goodgif);
                 } else if (air>15 && air <= 30) {
                     mLinearLayout.setBackground(normal);
-
+                    mToolbar.setBackgroundColor(Color.parseColor("#4e8b29"));
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif2).into(goodgif);
 
                 } else if (air>=30 && air <= 50) {
                     mLinearLayout.setBackground(bad);
+                    mToolbar.setBackgroundColor(Color.parseColor("#d49706"));
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif3).into(goodgif);
 
                 } else {
                     mLinearLayout.setBackground(verybad);
+                    mToolbar.setBackgroundColor(Color.parseColor("#8a221f"));
                     GlideDrawableImageViewTarget goodgif = new GlideDrawableImageViewTarget(image_gif);
                     Glide.with(MainActivity.this).load(R.drawable.gif4).into(goodgif);
                 }

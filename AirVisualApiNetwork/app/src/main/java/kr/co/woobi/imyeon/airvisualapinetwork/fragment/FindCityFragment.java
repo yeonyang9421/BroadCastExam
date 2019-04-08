@@ -69,15 +69,20 @@ public class FindCityFragment extends Fragment {
         mService.keyCity(mState, mCountry, MYKEY).enqueue(new Callback<CityLocationInfo>() {
             @Override
             public void onResponse(Call<CityLocationInfo> call, Response<CityLocationInfo> response) {
+                if (response.body() != null) {
 
-                List<City> data = response.body().getData();
-                for (int i = 0; i < data.size(); i++) {
-                    listData.add(data.get(i).getCity());
+
+                    if (response.body().getData() != null) {
+                        List<City> data = response.body().getData();
+                        for (int i = 0; i < data.size(); i++) {
+                            listData.add(data.get(i).getCity());
+                        }
+
+                        mAdapter = new RecyclerViewAdapterForCity(listData);
+                        mRecyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }
-
-                mAdapter = new RecyclerViewAdapterForCity(listData);
-                mRecyclerView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
             }
 
             @Override

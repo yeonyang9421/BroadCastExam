@@ -13,4 +13,9 @@ public class City {
         this.city = city;
     }
 
+    @Override
+    public String toString() {
+
+        return city;
+    }
 }

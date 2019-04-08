@@ -71,6 +71,9 @@ public class FindCityActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Example> call, Response<Example> response) {
 
+                if(response.body() !=null){
+
+
                 if(response.body().getData() !=null){
 
 
@@ -89,7 +92,7 @@ public class FindCityActivity extends AppCompatActivity {
                 }
             }
 
-
+            }
             @Override
             public void onFailure(Call<Example> call, Throwable t) {
                 Toast.makeText(FindCityActivity.this, "" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();

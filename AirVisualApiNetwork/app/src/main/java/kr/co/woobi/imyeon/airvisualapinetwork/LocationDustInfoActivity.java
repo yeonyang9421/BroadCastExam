@@ -31,9 +31,14 @@ public class LocationDustInfoActivity extends AppCompatActivity {
     private Spinner mSpinnerCountry, mSpinnerState, mSpinnerCity;
     private Service mService;
     private final String MYKEY = "4Mn5Fqqsh4bfJoaBg";
-    private String mCountry, mState, mCity;
+    private Country mCountry;
+    private State mState;
+    private City mCity;
     private Retrofit mRetrofit;
     private Example mData;
+    private ArrayAdapter<Country> mCountryAdapter;
+    private ArrayAdapter<State> mStateAdpater;
+    private ArrayAdapter<City> mCityAdater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +49,19 @@ public class LocationDustInfoActivity extends AppCompatActivity {
         mSpinnerState = findViewById(R.id.spinner_state);
         mSpinnerCity = findViewById(R.id.spinner_city);
 
-        final List<String> listCountry = new ArrayList<>();
-        final List<String> listState = new ArrayList<>();
-        final List<String> listCity = new ArrayList<>();
-//        dataAdpater3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        final List<Country> listCountry = new ArrayList<>();
+        final List<State> listState = new ArrayList<>();
+        final List<City> listCity = new ArrayList<>();
 
-
-        final ArrayAdapter<String> dataAdpater = new ArrayAdapter<String>(LocationDustInfoActivity.this, android.R.layout.simple_spinner_item, listCountry);
-        dataAdpater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCountryAdapter = new ArrayAdapter<>(LocationDustInfoActivity.this, android.R.layout.simple_spinner_item, listCountry);
+        mStateAdpater = new ArrayAdapter<>(LocationDustInfoActivity.this, android.R.layout.simple_spinner_item, listState);
+        mCityAdater = new ArrayAdapter<>(LocationDustInfoActivity.this, android.R.layout.simple_spinner_item, listCity);
+        mCountryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mStateAdpater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCityAdater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinnerCountry.setAdapter(mCountryAdapter);
+        mSpinnerState.setAdapter(mStateAdpater);
+        mSpinnerCity.setAdapter(mCityAdater);
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl("https://api.airvisual.com/")
@@ -63,20 +73,13 @@ public class LocationDustInfoActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<LocationDustInfo> call, Response<LocationDustInfo> response) {
 
-                List<Country> data = response.body().getData();
-                for (int i = 0; i < data.size(); i++) {
-                    listCountry.add(data.get(i).getCountry());
-                }
-                mSpinnerCountry.setAdapter(dataAdpater);
-                dataAdpater.notifyDataSetChanged();
-
-
+                LocationDustInfo data = response.body();
+                mCountryAdapter.addAll(data.getData());
             }
 
             @Override
             public void onFailure(Call<LocationDustInfo> call, Throwable t) {
                 Toast.makeText(LocationDustInfoActivity.this, "" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -85,24 +88,33 @@ public class LocationDustInfoActivity extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mCountry = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(LocationDustInfoActivity.this, "" + mCountry, Toast.LENGTH_SHORT).show();
-//===============================================================================================================
-                final ArrayAdapter<String> dataAdpater2 = new ArrayAdapter<String>(LocationDustInfoActivity.this, android.R.layout.simple_spinner_item, listState);
-                dataAdpater2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-//                mService = mRetrofit.create(Service.class);
-                mService.keyState(mCountry, MYKEY).enqueue(new Callback<StateLocationInfo>() {
+                mCountry =mCountryAdapter.getItem(position);
+                mService.keyState(mCountry.getCountry(), MYKEY).enqueue(new Callback<StateLocationInfo>() {
                     @Override
                     public void onResponse(Call<StateLocationInfo> call, Response<StateLocationInfo> response) {
-//                        Toast.makeText(LocationDustInfoActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
-                        List<State> data = response.body().getData();
-                        for (int i = 0; i < data.size(); i++) {
-                            listState.add(data.get(i).getState());
-                        }
+                        StateLocationInfo data = response.body();
 
-                        mSpinnerState.setAdapter(dataAdpater2);
-                        dataAdpater2.notifyDataSetChanged();
+                        if (data == null) {
+                            mStateAdpater.clear();
+                            mCityAdater.clear();
+                            return;
+                        }
+                        mStateAdpater.clear();
+                        mStateAdpater.addAll(data.getData());
+                        mState = mStateAdpater.getItem(0);
+                        mService.keyCity(mState.getState(),mCountry.getCountry(), MYKEY).enqueue(new Callback<CityLocationInfo>() {
+                            @Override
+                            public void onResponse(Call<CityLocationInfo> call, Response<CityLocationInfo> response) {
+                                CityLocationInfo data = response.body();
+                                mCityAdater.clear();
+                                mCityAdater.addAll(data.getData());
+                            }
+
+                            @Override
+                            public void onFailure(Call<CityLocationInfo> call, Throwable t) {
+
+                            }
+                        });
 
                     }
 
@@ -112,8 +124,6 @@ public class LocationDustInfoActivity extends AppCompatActivity {
 
                     }
                 });
-//                mState = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(LocationDustInfoActivity.this, "" + mState, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -127,30 +137,22 @@ public class LocationDustInfoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                mState = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(LocationDustInfoActivity.this, "" + mState, Toast.LENGTH_SHORT).show();
-
-
-                //===============================================================================================================
-                final ArrayAdapter<String> dataAdpater3 = new ArrayAdapter<String>(LocationDustInfoActivity.this, android.R.layout.simple_spinner_item, listCity);
-                dataAdpater3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-//                mService = mRetrofit.create(Service.class);
-                mService.keyCity(mState, mCountry, MYKEY).enqueue(new Callback<CityLocationInfo>() {
+                mState = mStateAdpater.getItem(position);
+                mService.keyCity(mState.getState(), mCountry.getCountry(), MYKEY).enqueue(new Callback<CityLocationInfo>() {
                     @Override
                     public void onResponse(Call<CityLocationInfo> call, Response<CityLocationInfo> response) {
-//                        Toast.makeText(LocationDustInfoActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
-                        List<City> data= response.body().getData();
+                        Toast.makeText(LocationDustInfoActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
+                        CityLocationInfo data = response.body();
 
-                            for (int i = 0; i < data.size(); i++) {
-                                listCity.add(data.get(i).getCity());
-                            }
-
-                            mSpinnerCity.setAdapter(dataAdpater3);
-                            dataAdpater3.notifyDataSetChanged();
-
+                        if(data==null){
+                            mCityAdater.clear();
+                            return;
                         }
 
+                          mCityAdater.clear();
+                        mCityAdater.addAll(data.getData());
+
+                    }
 
 
                     @Override
@@ -172,27 +174,19 @@ public class LocationDustInfoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                mCity = parent.getItemAtPosition(position).toString();
-//                Toast.makeText(LocationDustInfoActivity.this, "" + mCity, Toast.LENGTH_SHORT).show();
-
-
-                //===============================================================================================================
-                final ArrayAdapter<String> dataAdpater3 = new ArrayAdapter<String>(LocationDustInfoActivity.this, android.R.layout.simple_spinner_item, listCity);
-                dataAdpater3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-//                mService = mRetrofit.create(Service.class);
-                mService.keyCityStateCountry(mCity, mState, mCountry, MYKEY).enqueue(new Callback<Example>() {
+                mCity =mCityAdater.getItem(position);
+                mService.keyCityStateCountry(mCity.getCity(), mState.getState(), mCountry.getCountry(), MYKEY).enqueue(new Callback<Example>() {
                     @Override
                     public void onResponse(Call<Example> call, Response<Example> response) {
-//                        Toast.makeText(LocationDustInfoActivity.this, "" + response.body(), Toast.LENGTH_SHORT).show();
 
                         mData = new Example();
                         mData.setData(response.body().getData());
 
-                       /* for (int i = 0; i < data.size(); i++) {
-                            listCity.add(data.get(i).getCity());
-                        }*/
                         Toast.makeText(LocationDustInfoActivity.this, "" + mCountry + mState + mCity, Toast.LENGTH_SHORT).show();
+
+
+
+
                     }
 
                     @Override
@@ -213,7 +207,6 @@ public class LocationDustInfoActivity extends AppCompatActivity {
 
     public void onSendDustInfo(View view) {
         Intent intent = new Intent(this, MainActivity.class);
-
 
         intent.putExtra("city", mData.getData().city);
         intent.putExtra("hu", mData.getData().getCurrent().getWeather().getHu());

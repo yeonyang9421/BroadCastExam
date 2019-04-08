@@ -59,6 +59,7 @@ public class FindStateFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.recycler);
         final List<String> listData = new ArrayList<>();
 
+
         mRetrofit = new Retrofit.Builder()
                 .baseUrl("https://api.airvisual.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -69,15 +70,20 @@ public class FindStateFragment extends Fragment {
             @Override
             public void onResponse(Call<StateLocationInfo> call, Response<StateLocationInfo> response) {
 
-                List<State> data = response.body().getData();
-                for (int i = 0; i < data.size(); i++) {
-                    listData.add(data.get(i).getState());
+                if (response.body() != null) {
+
+
+                    if (response.body().getData() != null) {
+                        List<State> data = response.body().getData();
+                        for (int i = 0; i < data.size(); i++) {
+                            listData.add(data.get(i).getState());
+                        }
+
+                        mAdapter = new RecyclerViewAdapterForState(listData);
+                        mRecyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }
-
-                mAdapter = new RecyclerViewAdapterForState(listData);
-                mRecyclerView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
-
             }
 
             @Override
